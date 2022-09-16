@@ -29,22 +29,30 @@ const taskSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    challenge: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true }
 );
 
 const taskAddSchema = Joi.object({
-  difficulty: Joi.string().required(),
+  difficulty: Joi.string(),
   favorite: Joi.boolean(),
   task: Joi.string().required(),
-  type: Joi.string().required(),
+  type: Joi.string(),
   data: Joi.string().required(),
   done: Joi.boolean(),
 });
+
+const schemas = {
+  taskAddSchema: taskAddSchema,
+};
 
 const Task = model("task", taskSchema);
 
 module.exports = {
   Task,
-  taskAddSchema,
+  schemas,
 };
