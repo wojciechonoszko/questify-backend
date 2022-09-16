@@ -4,8 +4,6 @@ const task = require("../controllers/task");
 
 router.get("/all", task.getAllTask);
 router.post("/add", task.addTask);
-// router.get("/all", (req, res) => {
-//   res.send("About");
-// });
+router.get("/:id", task.getTaskById);
 
 module.exports = router;

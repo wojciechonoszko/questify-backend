@@ -25,8 +25,12 @@ const taskSchema = new Schema(
       type: String,
       required: true,
     },
+    done: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { versionKey: "__v", timestamps: true }
+  { versionKey: false, timestamps: true }
 );
 
 const taskAddSchema = Joi.object({
@@ -35,6 +39,7 @@ const taskAddSchema = Joi.object({
   task: Joi.string().required(),
   type: Joi.string().required(),
   data: Joi.string().required(),
+  done: Joi.boolean(),
 });
 
 const Task = model("task", taskSchema);
