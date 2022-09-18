@@ -3,7 +3,7 @@ const Joi = require("joi");
 
 const usersSchema = new Schema(
   {
-    emile: {
+    email: {
       type: String,
       required: [true, "Please type your email"],
     },
@@ -16,7 +16,7 @@ const usersSchema = new Schema(
 );
 
 const usersVerSchema = Joi.object({
-  emile: Joi.string().required(),
+  email: Joi.string().required(),
 });
 
 const Users = model("users", userSchema);
