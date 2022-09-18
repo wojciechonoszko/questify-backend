@@ -1,5 +1,4 @@
 const { Users, usersVerSchema } = require("../../models/usersSchema");
-const bcrypt = require("bcryptjs");
 const { nanoid } = require("nanoid");
 
 const register = async (req, res, next) => {
@@ -24,3 +23,5 @@ const register = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports = register;

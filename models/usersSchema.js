@@ -19,7 +19,7 @@ const usersVerSchema = Joi.object({
   email: Joi.string().required(),
 });
 
-const Users = model("users", userSchema);
+const Users = model("users", usersSchema);
 
 module.exports = {
   Users,
