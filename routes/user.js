@@ -1,10 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const user = require("../controllers/users/");
+const auth = require("../middlewares/auth");
 
 /**
  * @swagger
  * components:
+ *   securitySchemes:
+ *      bearerAuth:
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT
  *   schemas:
  *     User:
  *       type: object
@@ -47,7 +53,7 @@ const user = require("../controllers/users/");
  *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
- *         description: The task was successfully created
+ *         description: successfully created user
  *         content:
  *           application/json:
  *             schema:
@@ -62,13 +68,6 @@ router.post("/register", user.register);
  *   get:
  *     summary: Verify user
  *     tags: [User]
- *     parameters:
- *       - in: path
- *         name: verificationToken
- *         schema:
- *           type: string
- *         required: true
- *         description: The user verification token
  *     responses:
  *       200:
  *         description: Verification successful
@@ -101,5 +100,62 @@ router.get("/verify/:verificationToken", user.userVerify);
  *         description: The user was not found
  */
 router.delete("/delete/:id", user.deleteUser);
+/**
+ * @swagger
+ * /user/login:
+ *   post:
+ *     summary: Login user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: Successfully login
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Some server error
+ */
+router.post("/login", user.login);
+/**
+ * @swagger
+ * /user/current:
+ *   get:
+ *     summary: Current user
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
+router.get("/current/:id", auth, user.currentUser);
+/**
+ * @swagger
+ * /user/logout:
+ *   get:
+ *     summary: Logout user
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
+router.get("/logout", auth, user.logout);
 
 module.exports = router;

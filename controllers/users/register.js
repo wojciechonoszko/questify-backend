@@ -1,8 +1,8 @@
-const { Users, usersVerSchema } = require("../../models/usersSchema");
+const { Users, schemas } = require("../../models/usersSchema");
 const { nanoid } = require("nanoid");
 
 const register = async (req, res, next) => {
-  const { error } = usersVerSchema.validate(req.body);
+  const { error } = schemas.register.validate(req.body);
   if (error) {
     res.status(400).json({ message: "Email is needed" });
     return;
