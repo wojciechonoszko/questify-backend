@@ -15,6 +15,10 @@ const usersSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    token: {
+      type: String,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -23,9 +27,14 @@ const usersVerSchema = Joi.object({
   email: Joi.string().required(),
 });
 
+const schemas = {
+  login: usersVerSchema,
+  register: usersVerSchema,
+};
+
 const Users = model("users", usersSchema);
 
 module.exports = {
   Users,
-  usersVerSchema,
+  schemas,
 };
